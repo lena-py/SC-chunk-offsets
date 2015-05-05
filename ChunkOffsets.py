@@ -26,6 +26,7 @@ def main():
     myIterations = int(input("How many offsets to generate?\n"))
 
     print_offset(myOffset, myIterations)
+    print("this is a test")
 
 
 if __name__ == "__main__":
