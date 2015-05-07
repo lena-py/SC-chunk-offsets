@@ -1,13 +1,14 @@
 # CODE IS CURRENTLY BUTT-UGLY!!
 
 __author__ = 'lena'
-from ChunkOffsets import valid_entry
+
+from ChunkOffsets import get_input
+
 import string
 
-c = input("Enter an offset (first is 'c000c')\n")
-while not valid_entry(c, string.hexdigits):
-    my_offset = input("Not a valid chunk hex offset.  Try again.\n")
-    valid_entry(my_offset, string.hexdigits)
+
+c = get_input(input("Enter an offset (first is 'c000c')\n"), string.hexdigits,
+              "Not a valid hex chunk number.  Try again.\n")
 
 import turtle
 slim = turtle.Turtle()
@@ -15,11 +16,13 @@ wn = turtle.Screen()
 wn.setworldcoordinates(-20, -20, 320, 320)
 slim.speed(0)
 
-a = hex(int(c, base=16) + 20)
+a = (c) + 20
+b = hex(a)
+a = b
 slim.hideturtle()
 slim.penup()
 slim.goto(0, 320)
-slim.write(a[2:], move=False, align="center", font=("Arial", 16, "bold"))
+slim.write(b[2:], move=False, align="center", font=("Arial", 16, "bold"))
 y = 300
 
 
@@ -43,20 +46,16 @@ def column(a, b, x, y):
         slim.goto(x, y)
         slim.write(b[2:], move=False, align="center", font=("Arial", 16, "bold"))
         y -= 20
+        # return a,b,x,y
+for test in range(5):
+    column(a, b, x, y)
+    #a = int(a, base=16) + 256
 
-column(a, b, x, y)
+    x += 50
+    y = 320
 
-x = 100
-y = 320
+# column(a, b, x, y)
 
-column(a, b, x, y)
 
-# for i in range(16):
-#     a = int(a, base=16) + 256
-#     b = hex(a)
-#     a = b
-#     slim.goto(x, y)
-#     slim.write(b[2:], move=False, align="center", font=("Arial", 16, "bold"))
-#     y -= 20
 
 wn.exitonclick()
