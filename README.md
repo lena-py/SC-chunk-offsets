@@ -7,4 +7,8 @@ It currently contains two functions(excluding the main):
   print_offset
 
 
-  Testing a new branch
+# Questions:
+# Naming convention for variables, functions: spelling, underscores, short CapWords
+# using constants: to be avoided?  10410
+# Why does line 61 work?
+# turtle world coordinates placement
