@@ -3,6 +3,13 @@ import string
 _CHUNK_LENGTH = int("10410", base=16)
 
 
+def get_input(entry, digits, message):
+    while not valid_entry(entry, digits):
+        entry = input(message)
+        valid_entry(entry, digits)
+    return int(entry, base=16)
+
+
 def valid_entry(entry, digits=string.digits):
     # scaffolding code print(len(entry))
     idx = 0
@@ -57,17 +64,10 @@ def print_offset(offset, itr):
 def main():
 
     my_offset = input("Enter an offset (first is 'c000c')\n")
-    while not valid_entry(my_offset, string.hexdigits):
-        my_offset = input("Not a valid chunk hex offset.  Try again.\n")
-        valid_entry(my_offset, string.hexdigits)
-
+    my_offset = get_input(my_offset, string.hexdigits, "Not a valid hex chunk number.  Try again.\n")
     my_iterations = input("How many offsets to generate? 1 - oo\n")
-    while not valid_entry(my_iterations):
-        my_iterations = input("You must enter a number\n")
-        valid_entry(my_iterations)
+    my_iterations = get_input(my_iterations, string.digits, "You must enter a positive integer.  Try again.\n")
 
-    my_offset = int(my_offset, base=16)
-    my_iterations = int(my_iterations)
     print_offset(my_offset, my_iterations)
 
 if __name__ == "__main__":
