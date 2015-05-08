@@ -15,3 +15,4 @@ It currently contains two functions(excluding the main):
 # repeating variable, parameter names in functions
 # where to do conversion?  in function or main function?
 # commas or tabs?
+# why does putting turtle into a function change the behavior of the set world coordinates?

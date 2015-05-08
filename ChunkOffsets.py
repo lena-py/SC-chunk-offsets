@@ -16,6 +16,9 @@ def valid_entry(entry, digits=string.digits):
     i = 0
     found = 0
 
+    if entry == "":
+        return found
+
     while i < len(entry):
         while idx < len(digits):
             # scaffolding code print("idx", idx, "i", i)
@@ -46,15 +49,12 @@ def valid_entry(entry, digits=string.digits):
 
 def next_offset(offset):
     new_offset = (offset + _CHUNK_LENGTH)
-
     return new_offset
 
 
 def print_offset(offset, itr):
-
     print("OFFSETS\n------")
     print(hex(offset), "\n------")
-
     for i in range(itr):
         offset = next_offset(offset)
         print(hex(offset))
@@ -62,7 +62,6 @@ def print_offset(offset, itr):
 
 
 def main():
-
     my_offset = input("Enter an offset (first is 'c000c')\n")
     my_offset = get_input(my_offset, string.hexdigits, "Not a valid hex chunk number.  Try again.\n")
     my_iterations = input("How many offsets to generate? 1 - oo\n")
