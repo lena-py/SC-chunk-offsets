@@ -3,40 +3,8 @@
 __author__ = 'lena'
 
 from ChunkOffsets import get_input
-
 import string
-
-
-c = get_input(input("Enter an offset (first is 'c000c')\n"), string.hexdigits,
-              "Not a valid hex chunk number.  Try again.\n")
-
 import turtle
-slim = turtle.Turtle()
-wn = turtle.Screen()
-wn.setworldcoordinates(-20, -20, 1960, 320)
-slim.speed(0)
-x = 0
-
-a = c + 20
-a = hex(a)
-# a = b
-slim.hideturtle()
-slim.penup()
-slim.goto(0, 320)
-slim.write(a[2:], move=False, align="center", font=("Arial", 16, "bold"))
-y = 300
-
-
-for i in range(15):
-    a = int(a, base=16) + 256
-    a = hex(a)
-    # a = b
-    slim.goto(0, y)
-    slim.write(a[2:], move=False, align="center", font=("Arial", 16, "bold"))
-    y -= 20
-
-# x = 50
-# y = 320
 
 
 def column(a, x, y):
@@ -49,17 +17,36 @@ def column(a, x, y):
         y -= 20
     return a
 
-for test in range(15):
+
+c = get_input(input("Enter an offset (first is 'c000c')\n"), string.hexdigits,
+              "Not a valid hex chunk number.  Try again.\n")
+my_offset = c + 20
+my_offset = hex(my_offset)
+y = 320
+x = 0
+
+slim = turtle.Turtle()
+wn = turtle.Screen()
+wn.setworldcoordinates(-20, -20, 1960, 320)
+slim.speed(0)
+slim.hideturtle()
+slim.penup()
+slim.goto(x, y)
+
+for i in range(16):
+    if i == 0:
+        my_offset = c + 20
+    else:
+        my_offset = int(my_offset, base=16) + 256
+    my_offset = hex(my_offset)
+    # a = b
+    slim.goto(0, y)
+    slim.write(my_offset[2:], move=False, align="center", font=("Arial", 16, "bold"))
+    y -= 20
+
+for test in range(16):
     x += 150
     y = 320
-    a = column(a, x, y)
-    #column(a, x, y)
-    #a = int(a, base=16) + 256
-
-
-
-# column(a, b, x, y)
-
-
+    my_offset = column(my_offset, x, y)
 
 wn.exitonclick()
