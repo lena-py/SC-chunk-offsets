@@ -55,7 +55,18 @@ from ChunkOffsets import valid_entry
 
 import string
 
-print(valid_entry("c000c", string.hexdigits))
+s = "12345"
+print(len(s))
+i = 0
+found = 0
 
-# this is a test, bitch
+while i < len(s):
+    if s[i] in string.hexdigits:
+        found += 1
+    i += 1
+
+print("found is", found)
+
+
+
 

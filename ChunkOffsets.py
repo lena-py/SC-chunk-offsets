@@ -12,7 +12,7 @@ def get_input(entry, digits, message):
 
 def valid_entry(entry, digits=string.digits):
     # scaffolding code print(len(entry))
-    idx = 0
+    # idx = 0
     i = 0
     found = 0
 
@@ -20,20 +20,25 @@ def valid_entry(entry, digits=string.digits):
         return found
 
     while i < len(entry):
-        while idx < len(digits):
-            # scaffolding code print("idx", idx, "i", i)
-            if entry[i] == digits[idx]:
-                found += 1
-                # scaffolding code print("found")
-                idx = len(digits)
-            else:
-                idx += 1
-                # scaffolding code print("not found")
+        if entry[i] in digits:
+            found += 1
         i += 1
-        idx = 0
-        # scaffolding code print("round")
 
-    # scaffolding code print(found)
+    # while i < len(entry):
+    #     while idx < len(digits):
+    #         # scaffolding code print("idx", idx, "i", i)
+    #         if entry[i] == digits[idx]:
+    #             found += 1
+    #             # scaffolding code print("found")
+    #             idx = len(digits)
+    #         else:
+    #             idx += 1
+    #             # scaffolding code print("not found")
+    #     i += 1
+    #     idx = 0
+    #     # scaffolding code print("round")
+    #
+    # # scaffolding code print(found)
 
     if found == len(entry):
         if digits == string.hexdigits:
