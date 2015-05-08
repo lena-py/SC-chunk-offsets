@@ -8,14 +8,19 @@ import turtle
 
 
 def column(a, x, y):
-    for idx in range(16):
-        a = int(a, base=16) + 256
-        a = hex(a)
-        # a = b
-        slim.goto(x, y)
-        slim.write(a[2:], move=False, align="center", font=("Arial", 16, "bold"))
-        y -= 20
-    return a
+    for test in range(16):
+        print(test)
+        for idx in range(16):
+            a = int(a, base=16) + 256
+            a = hex(a)
+            # a = b
+            slim.goto(x, y)
+            slim.write(a[2:], move=False, align="center", font=("Arial", 16, "bold"))
+            y -= 20
+            print("slim wrote idx", idx)
+        print("round", test)
+        x += 150
+        y = 320
 
 
 c = get_input(input("Enter an offset (first is 'c000c')\n"), string.hexdigits,
@@ -43,10 +48,9 @@ for i in range(16):
     slim.goto(0, y)
     slim.write(my_offset[2:], move=False, align="center", font=("Arial", 16, "bold"))
     y -= 20
+x += 150
+y = 320
+column(my_offset, x, y)
 
-for test in range(16):
-    x += 150
-    y = 320
-    my_offset = column(my_offset, x, y)
 
 wn.exitonclick()
