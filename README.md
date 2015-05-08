@@ -14,3 +14,4 @@ It currently contains two functions(excluding the main):
 # turtle world coordinates placement
 # repeating variable, parameter names in functions
 # where to do conversion?  in function or main function?
+# commas or tabs?
