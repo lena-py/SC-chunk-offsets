@@ -59,6 +59,7 @@ def next_offset(offset):
 
 def print_offset(offset, itr):
     print("OFFSETS\n------")
+    print("{0:#x}".format(offset), "This uses the hex format option")
     print(hex(offset), "\n------")
     for i in range(itr):
         offset = next_offset(offset)
