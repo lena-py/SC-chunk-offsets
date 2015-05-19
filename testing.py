@@ -68,5 +68,14 @@ while i < len(s):
 print("found is", found)
 
 
+def lePack(n, l):
+    """ Converts integer to bytes. If length after conversion
+    is smaller than given as param returned value is right-filled
+    with 0x00 bytes. Use Little-endian byte order."""
+    return b''.join([
+        chr((n >> ((l - i - 1) * 8)) % 256) for i in xrange(l)
+    ][::-1])
 
 
+
+lePack(256, 8)
