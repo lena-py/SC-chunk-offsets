@@ -67,15 +67,37 @@ while i < len(s):
 
 print("found is", found)
 
+__author__ = 'lena'
+import struct
+import binascii
+print("NEW RUN")
+# from inner method
+# binascii.unhexlify: Return the binary data represented by the hexadecimal string hexstr.
+# struct.unpack: Unpack from the buffer buffer (presumably packed by pack(fmt, ...)) according to the format string fmt.
+# output is a tuple
+print(struct.unpack('<L', binascii.unhexlify('06010000')))
+# hex equivalent of above
+# uses an index to access the first element of the tuple
+print(hex(struct.unpack('<L', binascii.unhexlify('06010000'))[0]))
+# pack an int
+print(struct.pack("I", 262))
 
-def lePack(n, l):
-    """ Converts integer to bytes. If length after conversion
-    is smaller than given as param returned value is right-filled
-    with 0x00 bytes. Use Little-endian byte order."""
-    return b''.join([
-        chr((n >> ((l - i - 1) * 8)) % 256) for i in xrange(l)
-    ][::-1])
+
+a = (binascii.unhexlify('06010000'))
+print("a is", a)
+
+a1 = struct.pack("I", struct.unpack('<L', a)[0] + 1)
+print("a1 is", a1)
+print("a1 type is", type(a1))
+
+b = binascii.hexlify(a)
+print("b is", b)
+
+c = struct.unpack('<L', a1)
+print(c[0])
+print(hex(c[0]))
 
 
 
-lePack(256, 8)
+
+
