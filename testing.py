@@ -98,6 +98,13 @@ print(c[0])
 print(hex(c[0]))
 
 
-
+with open("chunks.dat", "rb") as f:
+    byte = f.read(4)
+    print(byte)
+    for i in range(16):
+        b = binascii.hexlify(byte)
+        print(b)
+        print(struct.unpack('<L', binascii.unhexlify(b)))
+        byte = f.read(4)
 
 
