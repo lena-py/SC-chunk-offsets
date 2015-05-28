@@ -1,3 +1,5 @@
+## THIS IS UGLY CODE
+
 # HEX CHECKS
 # a = int("10410", base=16)
 # print(a)
@@ -100,11 +102,35 @@ print(hex(c[0]))
 
 with open("chunks.dat", "rb") as f:
     byte = f.read(4)
+    chunklist = [[], [], []]
     print(byte)
-    for i in range(16):
-        b = binascii.hexlify(byte)
-        print(b)
-        print(struct.unpack('<L', binascii.unhexlify(b)))
-        byte = f.read(4)
+    for num in range(630):
+        for i in range(3):
+            b = binascii.hexlify(byte)
+
+            print(struct.unpack('<L', binascii.unhexlify(b)))
+            b = struct.unpack('<L', binascii.unhexlify(b))
+            b = b[0]
+            chunklist[i].append(b)
+
+            byte = f.read(4)
+
+
+print(chunklist)
+coords = []
+for num in range(630):
+    coord = [chunklist[0][num], chunklist[1][num]]
+    coords.append(coord)
+print(coords)
+i = 0
+for acoord in coords:
+    print(acoord)
+    repeats = (coords.count(acoord))
+    print(repeats)
+    if repeats > 1:
+        print("eureka")
+        print(i)
+        break
+    i += 1
 
 
