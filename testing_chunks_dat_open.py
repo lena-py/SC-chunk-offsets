@@ -103,26 +103,27 @@ def hex_unhex():
     print(hex(c[0]))
 '----------------------------------------------------------------------------------------------------------------------'
 
-
 with open("chunks.dat", "rb") as f:
     byte = f.read(4)
-    chunklist = [[], [], []]
     print(byte)
-    for num in range(630):
+    chunklist = [[], [], []]
+    for num in range(700):
         for i in range(3):
             b = binascii.hexlify(byte)
-
-            print(struct.unpack('<L', binascii.unhexlify(b)))
-            b = struct.unpack('<L', binascii.unhexlify(b))
-            b = b[0]
+            print(b)
+#
+#             print(struct.unpack('<L', binascii.unhexlify(b)))
+#             b = struct.unpack('<L', binascii.unhexlify(b))
+#             b = b[0]
             chunklist[i].append(b)
-
+#
             byte = f.read(4)
-
-
+#     f.close()
+#
+#
 print(chunklist)
 coords = []
-for num in range(630):
+for num in range(700):
     coord = [chunklist[0][num], chunklist[1][num]]
     coords.append(coord)
 print(coords)
@@ -131,9 +132,8 @@ for acoord in coords:
     print(acoord)
     repeats = (coords.count(acoord))
     print(repeats)
-    if repeats > 1:
+    if repeats > 1 and acoord != [b'00000000', b'00000000']:
         print("eureka")
         print(i)
         break
     i += 1
-
