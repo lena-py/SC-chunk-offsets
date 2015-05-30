@@ -1,0 +1,4 @@
+Naming conventions
+use underscores?  camelcase?
+repeat variable names in different functions?
+hexlify: in testing_chunks_dat_open: why does b[0] = 56?

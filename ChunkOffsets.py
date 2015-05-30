@@ -11,12 +11,10 @@ def get_input(entry, digits, message):
 
 
 def valid_entry(entry, digits=string.digits):
-    # scaffolding code print(len(entry))
-    # idx = 0
     i = 0
     found = 0
 
-    if entry == "":
+    if entry == "" or entry == "0":
         return found
 
     while i < len(entry):
@@ -24,31 +22,15 @@ def valid_entry(entry, digits=string.digits):
             found += 1
         i += 1
 
-    # while i < len(entry):
-    #     while idx < len(digits):
-    #         # scaffolding code print("idx", idx, "i", i)
-    #         if entry[i] == digits[idx]:
-    #             found += 1
-    #             # scaffolding code print("found")
-    #             idx = len(digits)
-    #         else:
-    #             idx += 1
-    #             # scaffolding code print("not found")
-    #     i += 1
-    #     idx = 0
-    #     # scaffolding code print("round")
-    #
-    # # scaffolding code print(found)
-
     if found == len(entry):
         if digits == string.hexdigits:
             if int(entry, base=16) % _CHUNK_LENGTH == 54108:
                 found = True
             else:
-                # scaffolding code print("not a valid hex number shit head")
                 found = False
     else:
         found = False
+
     return found
 
 
@@ -59,7 +41,7 @@ def next_offset(offset):
 
 def print_offset(offset, itr):
     print("OFFSETS\n------")
-    print("{0:#x}".format(offset), "This uses the hex format option")
+    print("{:X}".format(offset), "This uses the hex format option")
     print(hex(offset), "\n------")
     for i in range(itr):
         offset = next_offset(offset)
