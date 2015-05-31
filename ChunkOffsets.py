@@ -39,14 +39,13 @@ def next_offset(offset):
     return new_offset
 
 
-def print_offset(offset, itr):
-    print("OFFSETS\n------")
-    print("{:X}".format(offset), "This uses the hex format option")
-    print(hex(offset), "\n------")
+def create_offset_list(offset, itr):
+    generated_offsets = []
+    generated_offsets.append(offset)
     for i in range(itr):
         offset = next_offset(offset)
-        print(hex(offset))
-        print("-------")
+        generated_offsets.append(offset)
+    return generated_offsets
 
 
 def main():
@@ -54,8 +53,18 @@ def main():
     my_offset = get_input(my_offset, string.hexdigits, "Not a valid hex chunk number.  Try again.\n")
     my_iterations = input("How many offsets to generate? 1 - oo\n")
     my_iterations = get_input(my_iterations, string.digits, "You must enter a positive integer.  Try again.\n")
+    my_format = ""
+    while my_format != "int" and my_format != "hex":
+        my_format = input("Displayed as int or hex?\n")
 
-    print_offset(my_offset, my_iterations)
+    offset_list = create_offset_list(my_offset, my_iterations)
+    for i in range(len(offset_list)):
+        if my_format == "int":
+            print((offset_list[i]))
+        elif my_format == "hex":
+            print(("{:X}".format(offset_list[i])))
+        print('--------')
+
 
 if __name__ == "__main__":
     main()
