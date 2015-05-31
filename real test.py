@@ -50,7 +50,10 @@ with open("chunks.dat", "rb") as f:
         one_chunk = binascii.hexlify(f.read(66576))
     print(chunk_body_coords_final)
 
-    # Find repeated chunks by coordinates
+    for i in range(3):
+        print(chunk_body_coords_final[i] == directory_array_final[i])
+
+    # Find repeated chunks by coordinates in the body
     how_many = 0
     counter = 0
     for a_coord in chunk_body_coords_final:
