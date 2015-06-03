@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SC-chunk-offsets.iml" filepath="$PROJECT_DIR$/.idea/SC-chunk-offsets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../httlacs/.idea/httlacs2.iml" filepath="$PROJECT_DIR$/../httlacs/.idea/httlacs2.iml" />
     </modules>
   </component>
 </project>
