@@ -4,7 +4,7 @@ import struct
 
 tmpl_chnk_dic = {}
 
-for i in (9, 10, 11):
+for i in range(2, 9):
     f_prfx = "/Users/lena/PycharmProjects/SC-chunk-offsets2/chunk_templates/"
     f_name = "chunk" + str(i) + ".dat"
     path = f_prfx + f_name
@@ -43,9 +43,9 @@ with open("chunks.dat", "rb") as f:
     count = 0
     for i in range(len(chunk_body_coords_final)):
         current_chunk_body = chunk_body_coords_final[i][1]
-        if current_chunk_body.count(b'440044004400440044004400440044004400') > 0:
+        if current_chunk_body.count(b'44004400440044004400440044004400') > 0:
             count += 1
-            current_chunk_body = tmpl_chnk_dic['chunk9']
+            current_chunk_body = tmpl_chnk_dic['chunk8']
             chunk_body_coords_final[i][1] = current_chunk_body
 
     bytes_again = b''
