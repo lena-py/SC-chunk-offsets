@@ -1,0 +1,34 @@
+# coding=utf-8
+# for chunk templates
+
+import binascii
+
+with open("chunks.dat", "rb") as f:
+    # Read the complete chunk directory
+
+    chnk_bdy = []
+    chnk_sps = []
+    for i in range(256):
+        column = []
+        for ablk in range(128):
+            blk = [binascii.hexlify(f.read(2))]
+            column.append(blk)
+        chnk_bdy.append(column)
+
+    for i in range(256):
+        sp = binascii.hexlify(f.read(4))
+        chnk_sps.append(sp)
+
+one_chnk = [chnk_bdy, chnk_sps]
+
+print(one_chnk[0][1])
+print(one_chnk[1][1])
+
+
+strt = 0
+stp = 256
+
+
+
+
+

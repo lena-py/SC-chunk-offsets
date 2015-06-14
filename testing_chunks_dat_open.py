@@ -36,8 +36,6 @@ def main():
     list_attributes(present_as_hex)
     list_attributes(unpacked)
 
-
-
 if __name__ == '__main__':
     main()
 #
