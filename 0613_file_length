@@ -11,7 +11,7 @@ with open("chunks.dat", "rb") as f:
     for i in range(256):
         column = []
         for ablk in range(128):
-            blk = [binascii.hexlify(f.read(2))]
+            blk = binascii.hexlify(f.read(2))
             column.append(blk)
         chnk_bdy.append(column)
 
@@ -23,6 +23,7 @@ one_chnk = [chnk_bdy, chnk_sps]
 
 print(one_chnk[0][1])
 print(one_chnk[1][1])
+print(b'0100' in one_chnk[0][0])
 
 
 strt = 0
