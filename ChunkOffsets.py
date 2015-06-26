@@ -40,8 +40,7 @@ def next_offset(offset):
 
 
 def create_offset_list(offset, itr):
-    generated_offsets = []
-    generated_offsets.append(offset)
+    generated_offsets = [offset]
     for i in range(itr):
         offset = next_offset(offset)
         generated_offsets.append(offset)
@@ -49,13 +48,15 @@ def create_offset_list(offset, itr):
 
 
 def main():
-    my_offset = input("Enter an offset (first is 'c000c')\n")
-    my_offset = get_input(my_offset, string.hexdigits, "Not a valid hex chunk number.  Try again.\n")
-    my_iterations = input("How many offsets to generate? 1 - oo\n")
-    my_iterations = get_input(my_iterations, string.digits, "You must enter a positive integer.  Try again.\n")
     my_format = ""
+    my_offset = input("Enter an offset (first is 'c000c')\n")
+    my_offset = get_input(my_offset, string.hexdigits, "{} is not a valid hex chunk number.  Try again.\n"
+                          .format(my_offset))
+    my_iterations = input("How many offsets should I generate? 1 - oo\n")
+    my_iterations = get_input(my_iterations, string.digits, "You must enter a positive integer.  Try again.\n")
+
     while my_format != "int" and my_format != "hex":
-        my_format = input("Displayed as int or hex?\n")
+        my_format = input("Display int or hex?\n")
 
     offset_list = create_offset_list(my_offset, my_iterations)
     for i in range(len(offset_list)):
