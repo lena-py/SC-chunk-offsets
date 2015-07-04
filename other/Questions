@@ -1,0 +1,10 @@
+naming conventions variables, functions: spelling, underscores, short CapWords use underscores?  camelcase?
+repeat variable names in different functions?
+modify data type in the function return or in the code that calls it?
+using constants: to be avoided?  10410
+spaces or tabs?
+why does putting turtle into a function change the behavior of the set world coordinates?
+hexlify: in testing_chunks_dat_open: why does b[0] = 56?
+
+
+what does "." do...I specified path
