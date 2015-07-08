@@ -44,7 +44,7 @@ with open("chunks.dat", "rb") as f:
         chunk_body_final.append(xz)
         one_chunk = binascii.hexlify(f.read(66576))
     print(len(chunk_body_final[0][0][1]))
-
+    print("list is done")
     count = 0
     for i in range(len(chunk_body_final)):
         current_chunk_body = chunk_body_final[i][1]
@@ -77,7 +77,7 @@ with open("chunks.dat", "rb") as f:
             count += 1
             chunk_body_final[i][1] = tmpl_chnk_dic['chunk2'][0]
             chunk_body_final[i][2] = tmpl_chnk_dic['chunk2'][1]
-
+    print("if's are done")
     bytes_again = b''
     for i in range((1000)):
         bytes_again += b'efbeaddeffffffff'
@@ -85,7 +85,7 @@ with open("chunks.dat", "rb") as f:
         bytes_again += chunk_body_final[i][0][1]
         bytes_again += chunk_body_final[i][1]
         bytes_again += chunk_body_final[i][2]
-
+    print("bytes are done")
         # print(bytes_again)
     bytes_again = binascii.unhexlify(bytes_again)
 
