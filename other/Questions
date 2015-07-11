@@ -8,3 +8,26 @@ hexlify: in testing_chunks_dat_open: why does b[0] = 56?
 
 
 what does "." do...I specified path
+
+
+
+# __file__ is a dunder to designate where it is
+# wrap the code in a function and then pass the path to the function
+# os.path.dirname will return the directory of a file
+# use list comprehension to be sure you get files with just .dat
+# unit tests in nose
+# file.stat to find the size of the file
+# from collections import counter to maintain a separate counter
+# two scoops of django
+# anaconda (notebooks, pandas)
+# iterm2 instead of terminal
+# homebrew
+# hitchkiker's guide to python
+
+# __file__ is a dunder to designate where it is
+# unit tests in nose
+# two scoops of django
+# anaconda (notebooks, pandas)
+# iterm2 instead of terminal
+# homebrew
+# hitchkiker's guide to python

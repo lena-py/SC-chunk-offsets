@@ -1,29 +1,14 @@
 __author__ = 'lena'
 import binascii
-import struct
 import os
 import datetime
-
-# __file__ is a dunder to designate where it is
-# wrap the code in a function and then pass the path to the function
-# os.path.dirname will return the directory of a file
-# use list comprehension to be sure you get files with just .dat
-# unit tests in nose
-# file.stat to find the size of the file
-# from collections import counter to maintain a separate counter
-# two scoops of django
-# anaconda (notebooks, pandas)
-# iterm2 instead of terminal
-# homebrew
-# hitchkiker's guide to python
-#
-"""
-look in the file module for seek
-"""
+from collections import Counter
 
 
 def template_dictionary(path):
     """ Return a dictionary of template files.
+
+    Template files do not contain header information.
 
     Args:
         path(str): The OS path to the directory containing the templates
@@ -45,51 +30,110 @@ def template_dictionary(path):
     return templates
 
 
-def search_replace(achunk, templates, multiplier=14):
+def search_replace(achunk, templates, acounter, multiplier=14):
     """ Search for a conversion code and replace with an item from the dictionary if found.
+
+    The header is not overwritten as it should not be changed.
 
     Args:
         achunk(bytes): an entire single chunk
+        templates(dict): a dictionary of template files
+        counter(collections.Counter): keeps track of number of occurrences of replaced chunks
         multiplier(int): the maximum chunk conversion code number
 
     Returns:
         achunk(bytes): if no conversion code is found then return original achunk.
             Otherwise, return the convertered achunk
+        counter(collections.Counter): counter of replaced chunks
     """
-    count = 0
+
     header = achunk[:32]
     blocks = achunk[32:131072]
     # surface_points = achunk[131072:133152]  Not needed but I might want it later
     for i in range(14):
             value = b'4400' * multiplier
             if value in blocks and multiplier != 1:
-                print("MULT IS:", multiplier)
+                acounter[multiplier] += 1
                 key = "Chunk{}.dat".format(multiplier)
                 blocks = templates[key][0]
                 surface_points = templates[key][1]
                 achunk = header + blocks + surface_points
                 break
             multiplier -= 1
-    return achunk
+    return achunk, acounter
 
 
-def main():
-    start_time = datetime.datetime.now()
-    chunk_templates = template_dictionary("/Users/lena/PycharmProjects/SC-chunk-offsets2/chunk_templates/")
+def create_chunks_file(original_file, new_file, templates, iterations, acounter):
+    """ Create a new chunks_dat file with chunks replaced that match a predefined code.
 
-    with open("Chunk_out.dat", "wb") as outfile:
-        with open("chunks.dat", "rb") as f:
+    Args:
+        original_file(str): existing chunks.dat file
+        new_file(str): the file to be created
+        templates: chunk templates
+        iterations: number of chunks in existing file
+        acounter: keeps track of replaced chunks
+
+    Returns:
+        acounter: complete record of all replaced chunks
+    """
+    with open(new_file, "wb") as outfile:
+        with open(original_file, "rb") as f:
+
             # Read the complete directory of chunks
             directory = f.read(786444)
             outfile.write(directory)
 
             current_chunk = binascii.hexlify(f.read(66576))
-            for num in range(2000):
-                current_chunk = search_replace(current_chunk, chunk_templates)
+            for num in range(iterations):
+                results = search_replace(current_chunk, templates, acounter)
+                current_chunk = results[0]
+                acounter = results[1]
+
                 outfile.write(binascii.unhexlify(current_chunk))
                 current_chunk = binascii.hexlify(f.read(66576))
 
-        print("done")
-    print(datetime.datetime.now() - start_time)
+    return acounter
+
+
+def number_of_chunks(afile):
+    """ Determine the number of chunks in a file
+
+    Args:
+        afile(bytes): a chunks file
+
+    Return:
+        int(result) or 0(int): valid file returns # chunks, invalid file returns 0
+    """
+    total_bytes = os.stat(afile).st_size
+    header_size = 786444
+    chunk_size = 66576
+    result = (total_bytes-header_size) / chunk_size
+    if result == int(result):
+        return int(result)
+    else:
+        return 0
+
+
+def main():
+    start_time = datetime.datetime.now()
+    counter = Counter({})
+    chunk_templates = template_dictionary("/Users/lena/PycharmProjects/SC-chunk-offsets2/chunk_templates/")
+    in_file = "Chunks.dat"
+    out_file = "Chunks_out.dat"
+
+    total_chunks = number_of_chunks(in_file)
+    if total_chunks > 0:
+        # Creates the outfile and assigns the counter to the variable
+        chunks_tally = create_chunks_file(in_file, out_file, chunk_templates, total_chunks, counter)
+        print("{} total chunks replaced".format(total_chunks))
+        for i in chunks_tally:
+            print(i, chunks_tally[i])
+    else:
+        print("You're file is effed up.  Nothing was done")
+
+    print("Time taken: {}".format(datetime.datetime.now() - start_time))
+
+
+
 if __name__ == '__main__':
     main()

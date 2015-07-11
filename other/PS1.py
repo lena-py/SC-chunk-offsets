@@ -29,4 +29,17 @@ print(type(b))
 
 
 # Directory name
-print(os.path.dirname(path))
+print(os.path.dirname("/Users/lena/PycharmProjects/SC-chunk-offsets2/other/Chunk_out.dat"))
+
+
+# Get the file size
+statinfo = os.stat("/Users/lena/PycharmProjects/SC-chunk-offsets2/Chunks.dat")
+print(statinfo.st_size)
+
+
+# Use seek to offset the current point of the file
+with open("/Users/lena/PycharmProjects/SC-chunk-offsets2/Chunks.dat", 'rb') as f:
+    print("eys")
+    f.seek(786444)
+    a = f.read(12)
+    print(a)
